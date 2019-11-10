@@ -69,4 +69,35 @@ public class MovieRentalObjectTest {
 
         Assert.assertEquals(cliente_Gabriel.statement(), esperada);
     }
+
+    @Test
+    public void TestaClientecomAluguelHTML(){
+        //Dado que:
+        String nome_iluminado = "O Iluminado";
+        int codigo_iluminado = 0;
+        Movie iluminado = new Movie(nome_iluminado, codigo_iluminado);
+
+        String nome_coringa = "Coringa";
+        int codigo_coringa = 1;
+        Movie coringa = new Movie(nome_coringa, codigo_coringa);
+
+        String nome = "Gabriel";
+        Customer cliente_Gabriel = new Customer(nome);
+
+        //Quando:
+        Rental aluguel_ilumindado = new Rental(iluminado, 6);
+        Rental aluguel_coringa = new Rental(coringa, 3);
+        cliente_Gabriel.addRental(aluguel_coringa);
+        cliente_Gabriel.addRental(aluguel_ilumindado);
+
+        //Considerando:
+        String esperada = "";
+        esperada = "<H1>Rentals for <EM>Gabriel</EM></H1><P>\n" +
+                "Coringa: 9.0<BR>\n" +
+                "O Iluminado: 8.0<BR>\n" +
+                "<P>You owe <EM>17.0</EM><P>\n" +
+                "On this rental you earned <EM>3</EM> frequent renter points<P>";
+
+        Assert.assertEquals(cliente_Gabriel.htmlStatement(), esperada);
+    }
 }
